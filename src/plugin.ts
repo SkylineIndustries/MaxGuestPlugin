@@ -3,7 +3,7 @@
 import { main } from "./main";
 
 registerPlugin({
-	name: "MaxGuestPlugin_V1.0.0",
+	name: "MaxGuestPlugin_V1.5.0",
 	version: "1.0.0",
 	authors: [ "NityeSky_Rodin" ],
 	type: "remote",

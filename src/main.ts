@@ -22,7 +22,7 @@ function showWindow(): void {
 		classification: windowTag,
 		width: 550,
 		height: 150,
-		title: 'MaxGuestPlugin_RELAESE_CANIDATE_2',
+		title: 'MaxGuestPlugin_V1.5.0',
 		widgets: [
 			{
 				name: "checkbox_auto_reset",
@@ -87,12 +87,13 @@ function showWindow(): void {
 				text: "Multiplier",
 			},
 			{
-				type: 'label',
+				type: 'button',
 				x: 5,
 				y: 120,
 				width: 500,
 				height: 20,
-				text: "THIS IS A BETA VERSION AND SHOULD ONLY BE USED FOR TESTING, USE AT OWN RISK",
+				onClick: () => { removeGuest(MaxGuest) },
+				text: "Remove Guest to limit",
 			},
 		],
 	};
@@ -191,4 +192,24 @@ var countGuestOnMap = function (): number {
 
 function removeSub(subToRemove: IDisposable) {
 	subToRemove.dispose()
+}
+
+function removeGuest(maxGuestAmount: number) {
+	var count: Entity[] = map.getAllEntities("guest");
+	var total: number = calculateRemoveGuest(maxGuestAmount);
+	for (var i: number = 0; i < total; i++) {
+		if (count[i])
+		count[i].remove();
+	}
+} 
+
+function calculateRemoveGuest(maxGuestAmount: number) {
+	var count = map.getAllEntities("guest").length;
+	var total = count - maxGuestAmount;
+	if (total < 0) {
+		return 0;
+	}
+	else {
+		return total;
+	}
 }
