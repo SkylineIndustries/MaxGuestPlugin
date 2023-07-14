@@ -1,7 +1,7 @@
 let subscribed = false;
 let sub: IDisposable;
 let sub2: IDisposable;
-let pluginOn = false;
+let pluginOn: boolean = false;
 let MaxGuest: number = 0;
 let MaxRemove: number = 0;
 let multiGeust: number = 1;
@@ -10,6 +10,8 @@ let selectedIdGuest: number = 0;
 let selectedIdRemove: number = 0;
 let colorMain = 0o6;
 let colorSecond = 0o7;
+var saveData = context.getParkStorage();
+
 const remove = (args: GuestGenerationArgs): void => {
 	var entity = map.getEntity(args.id);
 	entity.remove();
@@ -336,22 +338,31 @@ export function main() {
 	if (typeof ui !== "undefined") {
 		ui.registerMenuItem("Max guest plugin", () => showWindowMain());
 	}
-
+	var pluginOn1: any = saveData.get("2")
+	pluginOn = pluginOn1;
+	var maxGuest1: any = saveData.get("1")
+	MaxGuest = maxGuest1;
+	CheckpluginOn();
 }
 function CheckpluginOn() {
 	if (pluginOn) {
 		if (network.mode !== "client") {
 			sub2 = context.subscribe("interval.day", () => {
+				saveData.set("1", MaxGuest)
+				saveData.set("2", pluginOn)
 				maxGuestLimit(MaxGuest);
 			});
 		};
 	}
 	else {
 		subscribed = false;
+		saveData.set("1", MaxGuest)
+		saveData.set("2", pluginOn)
 		removeSub(sub2)
 		removeSub(sub)
 	}
-	}
+}
+
 
 var maxGuestLimit = function (maxGuestAmount: number) {
 	if (countGuestOnMap() >= maxGuestAmount) {
