@@ -9,7 +9,7 @@ const options =
 	/**
 	 * Change the file name of the output file here.
 	 */
-	filename: "MaxGuestPlugin_v2.0.0.js",
+	filename: "MaxGuestPlugin_v2.1.0.js",
 
 	/**
 	 * Determines in what build mode the plugin should be build. The default here takes

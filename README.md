@@ -1,4 +1,4 @@
-# MaxGuestPlugin v1.0.0
+# MaxGuestPlugin v2.1.0
 
 # What is this plugin for?
 
@@ -48,6 +48,7 @@ This is because the api does not allow to remove peeps from rides. therefore is 
 # Changelog
 * V1.0.0: initial release
 * V2.0.0: added remove guest function and some bug fixes
+* V2.1.0: Added the functionallity to keep the plugin enabled even when the game is saved and loaded.
 
 # Version numbering
 * V*1* Major changes

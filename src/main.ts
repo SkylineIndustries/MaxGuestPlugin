@@ -1,6 +1,7 @@
 let subscribed = false;
 let sub: IDisposable;
 let sub2: IDisposable;
+let sub3: IDisposable;
 let pluginOn: boolean = false;
 let MaxGuest: number = 0;
 let MaxRemove: number = 0;
@@ -338,28 +339,38 @@ export function main() {
 	if (typeof ui !== "undefined") {
 		ui.registerMenuItem("Max guest plugin", () => showWindowMain());
 	}
-	var pluginOn1: any = saveData.get("2")
+	sub3 = context.subscribe("map.save", () => {
+		saveData.set("1", MaxGuest)
+		saveData.set("2", pluginOn)
+	});
+
+	var pluginOn1: any = saveData.get("2");
 	pluginOn = pluginOn1;
-	var maxGuest1: any = saveData.get("1")
+	var maxGuest1: any = saveData.get("1");
 	MaxGuest = maxGuest1;
-	CheckpluginOn();
+
+	if (pluginOn) {
+		CheckpluginOn();
+	}
 }
 function CheckpluginOn() {
 	if (pluginOn) {
 		if (network.mode !== "client") {
 			sub2 = context.subscribe("interval.day", () => {
-				saveData.set("1", MaxGuest)
-				saveData.set("2", pluginOn)
 				maxGuestLimit(MaxGuest);
 			});
 		};
 	}
 	else {
 		subscribed = false;
-		saveData.set("1", MaxGuest)
-		saveData.set("2", pluginOn)
 		removeSub(sub2)
 		removeSub(sub)
+	}
+	let one = 1;
+	let two = 2;
+
+	if (one == two) {
+		removeSub(sub3)
 	}
 }
 
