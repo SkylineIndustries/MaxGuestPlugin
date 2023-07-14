@@ -344,11 +344,12 @@ export function main() {
 		saveData.set("2", pluginOn)
 	});
 
-	var pluginOn1: any = saveData.get("2");
-	pluginOn = pluginOn1;
-	var maxGuest1: any = saveData.get("1");
-	MaxGuest = maxGuest1;
-
+	if (saveData.has("1") && saveData.has("2")) {
+		var pluginOn1: any = saveData.get("2");
+		pluginOn = pluginOn1;
+		var maxGuest1: any = saveData.get("1");
+		MaxGuest = maxGuest1;
+	}
 	if (pluginOn) {
 		CheckpluginOn();
 	}
