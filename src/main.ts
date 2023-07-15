@@ -3,8 +3,6 @@ import { getMaxGuests,setMaxGuests, showWindowMain } from "./mainWindow"
 var saveData = context.getParkStorage();
 
 export function main() {
-	// Write code here that should happen on startup of the plugin.
-	// Register a menu item under the map icon:
 	if (typeof ui !== "undefined") {
 		ui.registerMenuItem("Max guest plugin", () => showWindowMain());
 	}

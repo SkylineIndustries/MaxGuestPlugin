@@ -38,11 +38,12 @@ When clicked on the remove to maxGuest button it will automatically remove the n
 * This plugin will not stop guests from leaving the park.
 * This plugin will not stop guests from entering the park when disabled or under the max.
 * This plugin is not always correct, it can be possible that the number of guests is higher than the max number of guests by a few guest.
-* This plugin is not optimized for multiplayer, it is possible that the plugin will not work correctly in multiplayer.
+* This plugin is not optimized for multiplayer, it is possible that the plugin will not work correctly in multiplayer.* This plugin will still be enaled when the game is saved and loaded.
+This also means that sharing the park will result into that the pulgin is also enabled for the other person. (WORKS ONLY OF THE OTHER PERSON HAS THE PLUGIN)
 * THIS PLUGIN DOES NOT WORK CORRECTLY WTIH THE LAGRE GROUP OF GUESTS CHEAT.
 * USE THIS PLUGIN AT YOUR OWN RISK (THE MAKER IS NOT RESPONSIBLE FOR ANY DAMAGE TO ANY FILE/PARK).
 * NOTE THAT THE REMOVE GUEST FUNCTION DOES NOT WORK WHILE PEEPS ARE ON RIDES SO KEEP THAT IN MIND.
-This is because the api does not allow to remove peeps from rides. therefore is this a beta V2.0.0 function and its future is not guaranteed.
+This is because the api does not allow to remove peeps from rides. therefore is this a V2.0.0 function and its future is not guaranteed.
 
 
 # Changelog
