@@ -50,6 +50,7 @@ This is because the api does not allow to remove peeps from rides. therefore is 
 * V1.0.0: initial release
 * V2.0.0: added remove guest function and some bug fixes
 * V2.1.0: Added the functionallity to keep the plugin enabled even when the game is saved and loaded.
+* V2.2.0: Changed the code so that is easier to update and cleaner. has no extra functions added to it.
 
 # Version numbering
 * V*1* Major changes

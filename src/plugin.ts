@@ -4,7 +4,7 @@ import { main } from "./main";
 
 registerPlugin({
 	name: "MaxGuestPlugin",
-	version: "2.1.0",
+	version: "2.2.0",
 	authors: [ "NityeSky_Rodin" ],
 	type: "remote",
 	licence: "MIT",

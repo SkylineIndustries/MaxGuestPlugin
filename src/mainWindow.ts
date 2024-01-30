@@ -15,6 +15,7 @@ let windowMain: Window = ui.getWindow(windowTag);
 let windowMaxGuest: Window = ui.getWindow(windowTag);
 let windowRemoveGuest: Window = ui.getWindow(windowTag);
 let emptyWindow: Window;
+let intCount: number[] = [0,0];
 
 function showWindowMaxGuest(): void {
 	if (windowMaxGuest) {
@@ -64,8 +65,8 @@ function showWindowMaxGuest(): void {
 				x: 5,
 				y: 50,
 				text: String(getMaxGuest()),
-				onDecrement: () => updateMaxGuest("De"),
-				onIncrement: () => updateMaxGuest("In"),
+				onDecrement: () => updateMax("GUEST", false),
+				onIncrement: () => updateMax("GUEST", true),
 			},
 			{
 				name: "Multi",
@@ -77,8 +78,8 @@ function showWindowMaxGuest(): void {
 				items: ["1", "10", "100", "1000"],
 				selectedIndex: selectedIdGuest,
 				onChange: (index: number) => {
-					selectedIdGuest = index;
-					updateMultiMaxGuest();
+					updateMultiplier(index, "GUEST");
+
 				},
 			},
 			{
@@ -143,8 +144,8 @@ function showWindowRemoveGuest() {
 				x: 5,
 				y: 60,
 				text: String(getMaxRemove()),
-				onDecrement: () => updateMaxRemove("De"),
-				onIncrement: () => updateMaxRemove("In"),
+				onDecrement: () => updateMax("REMOVE", false),
+				onIncrement: () => updateMax("REMOVE", true),
 			},
 			{
 				name: "Multi",
@@ -156,8 +157,7 @@ function showWindowRemoveGuest() {
 				items: ["1", "10", "100", "1000"],
 				selectedIndex: selectedIdRemove,
 				onChange: (index: number) => {
-					selectedIdRemove = index;
-					updateMultiMaxRemove();
+					updateMultiplier(index,"REMOVE");
 				},
 			},
 			{
@@ -174,7 +174,7 @@ function showWindowRemoveGuest() {
 				y: 185,
 				width: 500,
 				height: 90,
-				text: "these are beta V2.0.0 (CODENAME: LONGHORN) functions and its future is not guaranteed!"
+				text: "these are V2.0.0 (CODENAME: LONGHORN) functions and its future is not guaranteed!"
 			},
 			{
 				type: 'button',
@@ -246,77 +246,49 @@ export function showWindowMain(): void {
 	windowMain = ui.openWindow(windowDesc);
 }
 
-function updateMultiMaxGuest() {
-	if (selectedIdGuest === 0) {
-		multiGeust = 1;
-	} else if (selectedIdGuest === 1) {
-		multiGeust = 10;
-	} else if (selectedIdGuest === 2) {
-		multiGeust = 100;
-	} else if (selectedIdGuest === 3) {
-		multiGeust = 1000;
+function updateMultiplier(selectedId: number, multiplier: String) {
+
+	if (selectedId === 0) {
+		multiplier === "GUEST" ? (multiGeust = 1) : (multiRemove = 1);
+	} else if (selectedId === 1) {
+		multiplier === "GUEST" ? (multiGeust = 10) : (multiRemove = 10);
+	} else if (selectedId === 2) {
+		multiplier === "GUEST" ? (multiGeust = 100) : (multiRemove = 100);
+	} else if (selectedId === 3) {
+		multiplier === "GUEST" ? (multiGeust = 1000) : (multiRemove = 1000);
 	}
 }
 
-function updateMultiMaxRemove() {
-	if (selectedIdRemove === 0) {
-		multiRemove = 1;
-	} else if (selectedIdRemove === 1) {
-		multiRemove = 10;
-	} else if (selectedIdRemove === 2) {
-		multiRemove = 100;
-	} else if (selectedIdRemove === 3) {
-		multiRemove = 1000;
+function updateMax(type: string, increase: boolean) {
+	let input: string;
+	let window: Window;
+	let index: number;
+
+	if (type === "GUEST") {
+		input = "MaxGuestInput";
+		window = windowMaxGuest;
+		index = 0;
+	} else {
+		input = "MaxRemoveInput";
+		window = windowRemoveGuest;
+		index = 1;
 	}
+
+	if (increase) {
+		type === "GUEST" ? (intCount[index] += 1 * multiGeust) : (intCount[index] += 1 * multiRemove)
+	} else {
+		type === "GUEST" ? (intCount[index] -= 1 * multiGeust) : (intCount[index] -= 1 * multiRemove)
+	}
+
+	if (intCount[index] > 10000) {
+		intCount[index] = 10000
+	}
+	else if (intCount[index] < 0) {
+		intCount[index] = 0
+	}
+	window.findWidget<SpinnerWidget>(input).text = String(intCount[index]);
 }
 
-function updateMaxGuest(type: String) {
-	if (type === "In") {
-		MaxGuest += 1 * multiGeust;
-		if (MaxGuest < 10000) {
-			windowMaxGuest.findWidget<SpinnerWidget>("MaxGuestInput").text = String(getMaxGuest());
-		}
-		else if (MaxGuest >= 10000) {
-			MaxGuest = 10000
-			windowMaxGuest.findWidget<SpinnerWidget>("MaxGuestInput").text = "10000"
-		}
-	}
-	else if (type === "De") {
-		MaxGuest -= 1 * multiGeust;
-		if (MaxGuest > 0) {
-			windowMaxGuest.findWidget<SpinnerWidget>("MaxGuestInput").text = String(getMaxGuest());
-		}
-		else if (MaxGuest <= 0) {
-			MaxGuest = 0
-			windowMaxGuest.findWidget<SpinnerWidget>("MaxGuestInput").text = "0"
-		}
-	}
-
-
-}
-
-function updateMaxRemove(type: String) {
-	if (type === "In") {
-		MaxRemove += 1 * multiRemove;
-		if (MaxRemove < 10000) {
-			windowRemoveGuest.findWidget<SpinnerWidget>('MaxRemoveInput').text = String(getMaxRemove());
-		}
-		else if (MaxRemove >= 10000) {
-			MaxRemove = 10000
-			windowRemoveGuest.findWidget<SpinnerWidget>('MaxRemoveInput').text = "10000";
-		}
-	}
-	else if (type === "De") {
-		MaxRemove -= 1 * multiRemove;
-		if (MaxRemove > 0) {
-			windowRemoveGuest.findWidget<SpinnerWidget>('MaxRemoveInput').text = String(getMaxRemove());
-		}
-		else if (MaxRemove <= 0) {
-			MaxRemove = 0
-			windowRemoveGuest.findWidget<SpinnerWidget>('MaxRemoveInput').text = "0"
-		}
-	}
-}
 
 function getMaxGuest() {
 	return MaxGuest;

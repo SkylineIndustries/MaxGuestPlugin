@@ -28,17 +28,14 @@ export function CheckpluginOn() {
 		removeSub(sub2)
 		removeSub(sub)
 	}
-	let one = 1;
-	let two = 2;
 
-	if (one == two) {
+	if (false) {
 		removeSub(sub3)
 	}
 }
 
 var countGuestOnMap = function (): number {
-	var count = map.getAllEntities("guest").length
-	return count
+	return map.getAllEntities("guest").length
 }
 var maxGuestLimit = function (maxGuestAmount: number) {
 	if (countGuestOnMap() >= maxGuestAmount) {
